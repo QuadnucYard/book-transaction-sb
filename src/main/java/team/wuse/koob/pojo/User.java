@@ -1,4 +1,4 @@
-package com.example.demo.pojo;
+package team.wuse.koob.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

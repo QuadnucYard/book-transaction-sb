@@ -1,4 +1,4 @@
-package com.example.demo.result;
+package team.wuse.koob.result;
 
 public class Result {
 

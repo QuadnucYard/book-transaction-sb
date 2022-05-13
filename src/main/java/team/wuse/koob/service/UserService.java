@@ -1,9 +1,10 @@
-package com.example.demo.service;
+package team.wuse.koob.service;
 
-import com.example.demo.dao.UserDAO;
-import com.example.demo.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team.wuse.koob.dao.UserDAO;
+import team.wuse.koob.pojo.User;
+
 @Service
 public class UserService {
 	@Autowired

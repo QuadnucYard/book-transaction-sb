@@ -1,7 +1,7 @@
-package com.example.demo.dao;
+package team.wuse.koob.dao;
 
-import com.example.demo.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import team.wuse.koob.pojo.User;
 
 public interface UserDAO extends JpaRepository<User, Integer> {
 	User findByUsername(String username);
