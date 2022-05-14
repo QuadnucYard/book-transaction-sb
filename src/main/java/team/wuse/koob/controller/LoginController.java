@@ -1,5 +1,6 @@
 package team.wuse.koob.controller;
 
+import com.google.code.kaptcha.Constants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -13,6 +14,8 @@ import team.wuse.koob.result.Result;
 import team.wuse.koob.result.ResultFactory;
 import team.wuse.koob.service.UserService;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 public class LoginController {
 
@@ -21,10 +24,16 @@ public class LoginController {
 
 	@CrossOrigin
 	@PostMapping("/api/auth/login")
-	public Result login(@RequestBody User requestUser) {
-		String username = requestUser.getUsername();
-		username = HtmlUtils.htmlEscape(username);
+	public Result login(@RequestBody User requestUser, HttpSession session) {
+		System.out.println("login " + requestUser.toString());
 
+		// 验证码
+		String sessioncode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
+		if (!requestUser.getCode().equalsIgnoreCase(sessioncode)) {
+			return ResultFactory.buildFailResult("验证码错误");
+		}
+
+		String username = HtmlUtils.htmlEscape(requestUser.getUsername());
 		Subject subject = SecurityUtils.getSubject();
 //        subject.getSession().setTimeout(10000);
 		UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, requestUser.getPassword());
@@ -45,6 +54,7 @@ public class LoginController {
 
 	@PostMapping("/api/auth/register")
 	public Result register(@RequestBody User user) {
+		System.out.println("register " + user.toString());
 		int status = userService.register(user);
 		switch (status) {
 			case 0:

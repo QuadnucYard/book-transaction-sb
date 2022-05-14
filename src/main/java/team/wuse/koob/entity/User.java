@@ -69,4 +69,10 @@ public class User {
     @Transient
     private List<AdminRole> roles;
 
+    /**
+     * Verification code
+     */
+    @Transient
+    private String code;
+
 }

@@ -14,6 +14,8 @@ public class DefaultExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Result exceptionHandler(Exception e) {
         String message = null;
+        System.out.println("Except: ");
+        e.printStackTrace();
 
         if (e instanceof IllegalArgumentException) {
             message = "传入了错误的参数";
