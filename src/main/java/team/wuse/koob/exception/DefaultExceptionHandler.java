@@ -29,6 +29,6 @@ public class DefaultExceptionHandler {
             message = "权限认证失败";
         }
 
-        return ResultFactory.buildFailResult(message);
+        return ResultFactory.fail(message);
     }
 }

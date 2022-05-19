@@ -14,5 +14,7 @@ public interface GoodsDAO  extends JpaRepository<Goods, Integer> {
 	 */
 	Goods findById(int id);
 
+	List<Goods> findAllByNameLike(String keyword0);
+
 	List<Goods> findAllByNameLikeOrDescLike(String keyword0, String keyword1);
 }

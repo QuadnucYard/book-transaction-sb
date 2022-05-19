@@ -40,25 +40,26 @@ public class BookService {
 //        return books;
 //    }
 
-	public void addOrUpdate(Book book) {
+	public Book addOrUpdate(Book book) {
 		//redisService.delete("booklist");
-		bookDAO.save(book);
-		try {
+		var r=bookDAO.save(book); // 返回数据带有id
+		/*try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		//redisService.delete("booklist");
+		return r;
 	}
 
 	public void deleteById(int id) {
 		//redisService.delete("booklist");
 		bookDAO.deleteById(id);
-		try {
+		/*try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		//redisService.delete("booklist");
 	}
 

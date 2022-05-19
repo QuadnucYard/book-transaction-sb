@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -36,13 +35,14 @@ public class Goods {
 
 	private int price; // 价格
 
+	@Column(name = "desc_")
 	private String desc; // 商品描述
 
-	@OneToMany
+	/*@OneToMany
 	@JoinColumn(name = "id", referencedColumnName = "id")
-	private List<GoodsImage> images; // 商品图片
+	private List<GoodsImage> images; // 商品图片*/
 
-
+	@Column(name = "status")
 	private int status; // 商品状态
 
 }

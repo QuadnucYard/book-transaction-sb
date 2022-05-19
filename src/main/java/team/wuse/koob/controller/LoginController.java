@@ -30,7 +30,7 @@ public class LoginController {
 		// 验证码
 		String sessioncode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		if (!requestUser.getCode().equalsIgnoreCase(sessioncode)) {
-			return ResultFactory.buildFailResult("验证码错误");
+			return ResultFactory.fail("验证码错误");
 		}
 
 		String username = HtmlUtils.htmlEscape(requestUser.getUsername());
@@ -42,13 +42,13 @@ public class LoginController {
 			subject.login(usernamePasswordToken);
 			User user = userService.findByUsername(username);
 			if (!user.isEnabled()) {
-				return ResultFactory.buildFailResult("该用户已被禁用");
+				return ResultFactory.fail("该用户已被禁用");
 			}
-			return ResultFactory.buildSuccessResult(username);
+			return ResultFactory.success(username);
 		} catch (IncorrectCredentialsException e) {
-			return ResultFactory.buildFailResult("密码错误");
+			return ResultFactory.fail("密码错误");
 		} catch (UnknownAccountException e) {
-			return ResultFactory.buildFailResult("账号不存在");
+			return ResultFactory.fail("账号不存在");
 		}
 	}
 
@@ -58,20 +58,20 @@ public class LoginController {
 		int status = userService.register(user);
 		switch (status) {
 			case 0:
-				return ResultFactory.buildFailResult("用户名和密码不能为空");
+				return ResultFactory.fail("用户名和密码不能为空");
 			case 1:
-				return ResultFactory.buildSuccessResult("注册成功");
+				return ResultFactory.success("注册成功");
 			case 2:
-				return ResultFactory.buildFailResult("用户已存在");
+				return ResultFactory.fail("用户已存在");
 		}
-		return ResultFactory.buildFailResult("未知错误");
+		return ResultFactory.fail("未知错误");
 	}
 
 	@GetMapping("/api/auth/logout")
 	public Result logout() {
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();
-		return ResultFactory.buildSuccessResult("成功登出");
+		return ResultFactory.success("成功登出");
 	}
 
 	@GetMapping("/api/auth")

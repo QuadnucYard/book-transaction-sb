@@ -47,6 +47,7 @@ public class GoodsService {
 
 	public List<Goods> search(String keywords) {
 		// TODO 根据卖家名查询
-		return goodsDAO.findAllByNameLikeOrDescLike('%' + keywords + '%', '%' + keywords + '%');
+		return goodsDAO.findAllByNameLike('%' + keywords + '%');
+		//return goodsDAO.findAllByNameLikeOrDescLike('%' + keywords + '%', '%' + keywords + '%');
 	}
 }

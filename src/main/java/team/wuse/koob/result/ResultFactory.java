@@ -2,11 +2,11 @@ package team.wuse.koob.result;
 
 public class ResultFactory {
 
-	public static Result buildSuccessResult(Object data) {
+	public static Result success(Object data) {
 		return buildResult(ResultCode.SUCCESS, "success", data);
 	}
 
-	public static Result buildFailResult(String message) {
+	public static Result fail(String message) {
 		return buildResult(ResultCode.FAIL, message, null);
 	}
 

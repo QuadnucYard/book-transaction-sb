@@ -5,11 +5,9 @@ import lombok.ToString;
 import team.wuse.koob.dto.base.OutputConverter;
 import team.wuse.koob.entity.Book;
 import team.wuse.koob.entity.Goods;
-import team.wuse.koob.entity.GoodsImage;
 import team.wuse.koob.entity.User;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @ToString
@@ -29,7 +27,7 @@ public class GoodsDTO implements OutputConverter<GoodsDTO, Goods> {
 
 	private String desc;
 
-	private List<GoodsImage> images;
+	//private List<GoodsImage> images;
 
 	private int status;
 
