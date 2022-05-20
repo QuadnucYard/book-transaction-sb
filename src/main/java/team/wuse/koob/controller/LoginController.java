@@ -1,5 +1,7 @@
 package team.wuse.koob.controller;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.google.code.kaptcha.Constants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -44,7 +46,10 @@ public class LoginController {
 			if (!user.isEnabled()) {
 				return ResultFactory.fail("该用户已被禁用");
 			}
-			return ResultFactory.success(username);
+			JSONObject json = JSONUtil.createObj();
+			json.put("uid", user.getId());
+			json.put("name", username);
+			return ResultFactory.success(json);
 		} catch (IncorrectCredentialsException e) {
 			return ResultFactory.fail("密码错误");
 		} catch (UnknownAccountException e) {

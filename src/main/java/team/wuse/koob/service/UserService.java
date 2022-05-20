@@ -48,6 +48,10 @@ public class UserService {
 		return userDAO.findByUsername(username);
 	}
 
+	public User get(int uid) {
+		return userDAO.getById(uid);
+	}
+
 	public User get(String username, String password) {
 		return userDAO.getByUsernameAndPassword(username, password);
 	}
