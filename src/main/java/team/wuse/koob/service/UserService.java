@@ -102,14 +102,18 @@ public class UserService {
 		userDAO.save(userInDB);
 	}
 
-	public User resetPassword(User user) {
-		User userInDB = userDAO.findByUsername(user.getUsername());
+	public User resetPassword(String username, String pwd) {
+		User userInDB = userDAO.findByUsername(username);
 		String salt = new SecureRandomNumberGenerator().nextBytes().toString();
 		int times = 2;
 		userInDB.setSalt(salt);
-		String encodedPassword = new SimpleHash("md5", "123", salt, times).toString();
+		String encodedPassword = new SimpleHash("md5", pwd, salt, times).toString();
 		userInDB.setPassword(encodedPassword);
 		return userDAO.save(userInDB);
+	}
+
+	public User resetPassword(User user, String pwd) {
+		return resetPassword(user.getUsername(), pwd);
 	}
 
 	public void editUser(User user) {

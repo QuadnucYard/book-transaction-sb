@@ -16,7 +16,7 @@ import team.wuse.koob.result.Result;
 import team.wuse.koob.result.ResultFactory;
 import team.wuse.koob.service.UserService;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class LoginController {
@@ -26,12 +26,13 @@ public class LoginController {
 
 	@CrossOrigin
 	@PostMapping("/api/auth/login")
-	public Result login(@RequestBody User requestUser, HttpSession session) {
-		System.out.println("login " + requestUser.toString());
+	public Result login(@RequestBody User requestUser, HttpServletRequest request) {
+		System.out.println("login " + requestUser.toString()+" "+request.getSession().getId());
 
 		// 验证码
-		String sessioncode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
+		String sessioncode = (String)request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		if (!requestUser.getCode().equalsIgnoreCase(sessioncode)) {
+			System.out.println("验证码: " + sessioncode+ request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY));
 			return ResultFactory.fail("验证码错误");
 		}
 
