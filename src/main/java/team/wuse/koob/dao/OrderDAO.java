@@ -20,4 +20,6 @@ public interface OrderDAO extends JpaRepository<Order, Integer> {
 	 * @return 该用户的全部订单索引实体的数组
 	 */
 	List<Order> findAllByUserId(int uid);
+
+	List<Order> findAllByUserIdAndStatus(int uid, int status);
 }

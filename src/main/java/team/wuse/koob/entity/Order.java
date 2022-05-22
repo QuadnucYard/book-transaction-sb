@@ -1,5 +1,6 @@
 package team.wuse.koob.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.ToString;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "order")
+@Table(name = "order_index")
 @ToString
 public class Order {
 
@@ -22,15 +23,14 @@ public class Order {
 
     private String address;//收获地址
 
-    private Date date;//创建日期
+    private Date createTime;//创建日期
 
     private int status;//订单状态
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> details;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private int userId;
 
 }

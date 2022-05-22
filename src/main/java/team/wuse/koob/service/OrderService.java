@@ -20,6 +20,7 @@ public class OrderService {
 
 	/**
 	 * 插入订单索引信息
+	 *
 	 * @return
 	 */
 	public int addOrder(Order order) {
@@ -29,6 +30,7 @@ public class OrderService {
 
 	/**
 	 * 插入订单详情信息
+	 *
 	 * @return
 	 */
 	public boolean addOrderDetail(OrderDetail orderDetail) {
@@ -38,17 +40,23 @@ public class OrderService {
 
 	/**
 	 * 查找用户的所有订单
+	 *
 	 * @return
 	 */
 	public List<Order> findAllByUserId(int uid) {
 		return orderDAO.findAllByUserId(uid);
 	}
 
+	public List<Order> findAllByUserIdAndStatus(int uid, int status) {
+		return status == -1 ? findAllByUserId(uid) : orderDAO.findAllByUserIdAndStatus(uid, status);
+	}
+
 	/**
 	 * 查找订单的所有信息
+	 *
 	 * @return
 	 */
 	public List<OrderDetail> findAllByOrderId(int orderId) {
-	return  orderDetailDAO.findAllByOrderId(orderId);
+		return orderDetailDAO.findAllByOrderId(orderId);
 	}
 }

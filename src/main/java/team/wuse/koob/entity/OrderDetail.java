@@ -1,5 +1,6 @@
 package team.wuse.koob.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.ToString;
 
@@ -23,12 +24,11 @@ public class OrderDetail {
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     private Goods goods;//商品的编号
 
-    private String goods_name;//商品的名称
-
-    private int number;//每种商品的数量
+    private String goodsName;//商品的名称
 
     private int price;//每种商品的总价
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
