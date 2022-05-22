@@ -29,7 +29,7 @@ public class AdminMenuService {
 
     public List<AdminMenu> getMenusByCurrentUser() {
         // Get current user in DB.
-        String username = SecurityUtils.getSubject().getPrincipal().toString();
+        String username = ((User)SecurityUtils.getSubject().getPrincipal()).getUsername();
         User user = userService.findByUsername(username);
 
         // Get roles' ids of current user.
