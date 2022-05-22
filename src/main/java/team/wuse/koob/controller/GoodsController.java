@@ -24,19 +24,9 @@ public class GoodsController {
 	@Autowired
 	UserService userService;
 
-	/*@GetMapping("/api/goods/list")
-	public Result listGoods() {
-		return ResultFactory.buildSuccessResult(goodsService.list());
-	}*/
-
 	@GetMapping("/api/goods/list")
 	public Result searchGoods(@RequestParam("keywords") String keywords) {
-		try {
-			return ResultFactory.success("".equals(keywords) ? goodsService.list() : goodsService.search(keywords));
-		} catch (Exception e) {
-			e.printStackTrace(); // findLike那步有时会error
-			return ResultFactory.fail("Internal error");
-		}
+		return ResultFactory.success("".equals(keywords) ? goodsService.list() : goodsService.search(keywords));
 	}
 
 	@PostMapping("/api/goods/post")
@@ -48,5 +38,11 @@ public class GoodsController {
 		goods.setSeller(userService.findByUsername("add"));
 		goodsService.addOrUpdate(goods);
 		return ResultFactory.success("成功发布");
+	}
+
+	@GetMapping("/api/goods/seller")
+	public Result getGoodsBySeller(@RequestParam int uid) {
+		var result=goodsService.findAllBySellerId(uid);
+		return ResultFactory.success(result);
 	}
 }

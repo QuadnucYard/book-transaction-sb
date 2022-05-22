@@ -29,25 +29,19 @@ public class GoodsService {
 
 	public void addOrUpdate(Goods goods) {
 		goodsDAO.save(goods);
-		/*try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 	public void deleteById(int id) {
 		goodsDAO.deleteById(id);
-		/*try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 	public List<Goods> search(String keywords) {
 		// TODO 根据卖家名查询
 		return goodsDAO.findAllByNameLike('%' + keywords + '%');
 		//return goodsDAO.findAllByNameLikeOrDescLike('%' + keywords + '%', '%' + keywords + '%');
+	}
+
+	public List<Goods> findAllBySellerId(int id) {
+		return  goodsDAO.findAllBySellerId(id);
 	}
 }
