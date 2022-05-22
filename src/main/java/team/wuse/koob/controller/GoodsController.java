@@ -10,6 +10,7 @@ import team.wuse.koob.service.BookService;
 import team.wuse.koob.service.GoodsService;
 import team.wuse.koob.service.UserService;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 @RestController
@@ -42,7 +43,27 @@ public class GoodsController {
 
 	@GetMapping("/api/goods/seller")
 	public Result getGoodsBySeller(@RequestParam int uid) {
-		var result=goodsService.findAllBySellerId(uid);
+		var result = goodsService.findAllBySellerId(uid);
 		return ResultFactory.success(result);
+	}
+
+	@PostMapping("/api/admin/content/goods")
+	public Result addOrUpdateGoods(@RequestBody @Valid Goods goods) {
+		goodsService.addOrUpdate(goods);
+		return ResultFactory.success("修改成功");
+	}
+
+	@PostMapping("/api/admin/content/goods/delete")
+	public Result deleteGoods(@RequestBody @Valid Goods goods) {
+		goodsService.deleteById(goods.getId());
+		return ResultFactory.success("删除成功");
+	}
+
+	@PutMapping("/api/admin/content/goods/status")
+	public Result changeGoodsStatus(@RequestBody @Valid Goods goods) {
+		Goods goodsInDb = goodsService.find(goods.getId());
+		goodsInDb.setStatus(goods.getStatus());
+		goodsService.addOrUpdate(goodsInDb);
+		return ResultFactory.success("修改状态成功");
 	}
 }
