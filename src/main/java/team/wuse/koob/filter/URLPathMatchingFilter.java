@@ -7,6 +7,7 @@ import org.apache.shiro.web.filter.PathMatchingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import team.wuse.koob.entity.User;
 import team.wuse.koob.service.AdminPermissionService;
 import team.wuse.koob.util.SpringContextUtils;
 
@@ -51,7 +52,7 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
         } else {
             // 判断当前用户是否有相应权限
             boolean hasPermission = false;
-            String username = subject.getPrincipal().toString();
+            String username = ((User)subject.getPrincipal()).getUsername();
             Set<String> permissionAPIs = adminPermissionService.listPermissionURLsByUser(username);
             for (String api : permissionAPIs) {
                 // 匹配前缀
