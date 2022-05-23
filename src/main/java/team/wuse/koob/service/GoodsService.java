@@ -16,11 +16,19 @@ public class GoodsService {
 	@Autowired
 	private GoodsDAO goodsDAO;
 
+	private List<GoodsDTO> toDTO(List<Goods> goodsList) {
+		return goodsList.stream()
+				.map(goods -> new GoodsDTO().convertFrom(goods).setSeller(goods.getSeller()))
+				.collect(Collectors.toList());
+	}
+
 	public List<GoodsDTO> list() {
-		List<Goods> goodsList = goodsDAO.findAll(Sort.by(Sort.Direction.DESC, "id"));
-		List<GoodsDTO> goodsDTOs = goodsList.stream()
-				.map(goods -> new GoodsDTO().convertFrom(goods).setSeller(goods.getSeller())).collect(Collectors.toList());
-		return goodsDTOs;
+		return toDTO(goodsDAO.findAll(Sort.by(Sort.Direction.DESC, "id")));
+	}
+
+	public List<GoodsDTO> list(int status) {
+		if (status == -1) return list();
+		return list().stream().filter(t -> t.getStatus() == status).collect(Collectors.toList());
 	}
 
 	public Goods find(int id) {
@@ -35,13 +43,23 @@ public class GoodsService {
 		goodsDAO.deleteById(id);
 	}
 
-	public List<Goods> search(String keywords) {
+	public List<GoodsDTO> search(String keywords) {
 		// TODO 根据卖家名查询
-		return goodsDAO.findAllByNameLike('%' + keywords + '%');
+		return toDTO(goodsDAO.findAllByNameLike('%' + keywords + '%'));
 		//return goodsDAO.findAllByNameLikeOrDescLike('%' + keywords + '%', '%' + keywords + '%');
 	}
 
-	public List<Goods> findAllBySellerId(int id) {
-		return  goodsDAO.findAllBySellerId(id);
+	public List<GoodsDTO> search(String keywords, int status) {
+		if ("".equals(keywords)) {
+			return list(status);
+		} else if (status == -1) {
+			return toDTO(goodsDAO.findAllByNameLike('%' + keywords + '%'));
+		} else {
+			return toDTO(goodsDAO.findAllByStatusAndNameLike(status, '%' + keywords + '%'));
+		}
+	}
+
+	public List<GoodsDTO> findAllBySellerId(int id) {
+		return toDTO(goodsDAO.findAllBySellerId(id));
 	}
 }

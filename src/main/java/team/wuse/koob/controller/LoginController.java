@@ -2,6 +2,7 @@ package team.wuse.koob.controller;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.google.code.kaptcha.Constants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -29,11 +30,11 @@ public class LoginController {
 		System.out.println("login " + requestUser.toString()+" "+request.getSession().getId());
 
 		// 验证码
-		/*String sessioncode = (String)request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+		String sessioncode = (String)request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		if (!requestUser.getCode().equalsIgnoreCase(sessioncode)) {
 			System.out.println("验证码: " + sessioncode+ request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY));
 			return ResultFactory.fail("验证码错误");
-		}*/
+		}
 
 		String username = HtmlUtils.htmlEscape(requestUser.getUsername());
 		Subject subject = SecurityUtils.getSubject();

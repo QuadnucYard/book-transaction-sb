@@ -26,8 +26,9 @@ public class GoodsController {
 	UserService userService;
 
 	@GetMapping("/api/goods/list")
-	public Result searchGoods(@RequestParam("keywords") String keywords) {
-		return ResultFactory.success("".equals(keywords) ? goodsService.list() : goodsService.search(keywords));
+	public Result searchGoods(@RequestParam(name = "keywords", required = false, defaultValue = "") String keywords,
+							  @RequestParam(name = "status", required = false, defaultValue = "-1") int status) {
+		return ResultFactory.success(goodsService.search(keywords, status));
 	}
 
 	@GetMapping("/api/goods")
