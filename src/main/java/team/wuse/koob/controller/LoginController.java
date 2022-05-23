@@ -49,6 +49,7 @@ public class LoginController {
 			JSONObject json = JSONUtil.createObj();
 			json.put("uid", user.getId());
 			json.put("name", username);
+			json.put("money", user.getMoney());
 			return ResultFactory.success(json);
 		} catch (IncorrectCredentialsException e) {
 			return ResultFactory.fail("密码错误");

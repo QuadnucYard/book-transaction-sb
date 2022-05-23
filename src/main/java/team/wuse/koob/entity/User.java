@@ -59,6 +59,8 @@ public class User implements Serializable {
     @Email(message = "请输入正确的邮箱")
     private String email;
 
+    private int money;
+
     /**
      * User status.
      */

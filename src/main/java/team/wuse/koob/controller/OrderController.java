@@ -36,7 +36,7 @@ public class OrderController {
 		User user = userService.get(uid);
 		var result = orderService.findAllByUserId(uid).stream()
 				.flatMap(o -> o.getDetails().stream().map(d -> d.getGoods().getBook()))
-				.collect(Collectors.toList());
+				.distinct().collect(Collectors.toList());
 		return ResultFactory.success(result);
 	}
 
