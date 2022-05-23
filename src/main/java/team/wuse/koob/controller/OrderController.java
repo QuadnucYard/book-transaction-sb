@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team.wuse.koob.entity.User;
 import team.wuse.koob.result.Result;
 import team.wuse.koob.result.ResultFactory;
+import team.wuse.koob.service.GoodsService;
 import team.wuse.koob.service.OrderService;
 import team.wuse.koob.service.UserService;
 
@@ -20,6 +21,9 @@ public class OrderController {
 	UserService userService;
 	@Autowired
 	OrderService orderService;
+
+	@Autowired
+	GoodsService goodsService;
 
 	@GetMapping("/api/order")
 	public Result getOrders(@RequestParam int status) {

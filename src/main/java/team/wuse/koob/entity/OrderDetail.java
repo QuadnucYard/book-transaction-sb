@@ -1,7 +1,9 @@
 package team.wuse.koob.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "order_detail")
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class OrderDetail {
 
@@ -23,8 +27,6 @@ public class OrderDetail {
     @OneToOne
     @JoinColumn(name = "goods_id", referencedColumnName = "id")
     private Goods goods;//商品的编号
-
-    private String goodsName;//商品的名称
 
     private int price;//每种商品的总价
 

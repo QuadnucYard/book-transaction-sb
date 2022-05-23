@@ -30,6 +30,11 @@ public class GoodsController {
 		return ResultFactory.success("".equals(keywords) ? goodsService.list() : goodsService.search(keywords));
 	}
 
+	@GetMapping("/api/goods")
+	public  Result getGoods(@RequestParam int id) {
+		return ResultFactory.success(goodsService.find(id));
+	}
+
 	@PostMapping("/api/goods/post")
 	public Result postGoods(@RequestBody Goods goods) {
 		goods.setDate(new Date());

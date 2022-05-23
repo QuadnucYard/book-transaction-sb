@@ -6,6 +6,8 @@ import team.wuse.koob.dao.CartDAO;
 import team.wuse.koob.entity.Cart;
 import team.wuse.koob.entity.Goods;
 
+import java.util.List;
+
 @Service
 public class CartService {
 
@@ -24,6 +26,16 @@ public class CartService {
 			cart = cartDAO.save(cart);
 		}
 		cart.getGoods().add(goods);
+		cart = cartDAO.save(cart);
+		return cart;
+	}
+
+	public Cart removeCartGoodsById(int userId, List<Integer> idList) {
+		Cart cart = findByUserId(userId);
+		if (null == cart) {
+			return null;
+		}
+		cart.getGoods().removeIf(t -> idList.contains(t.getId()));
 		cart = cartDAO.save(cart);
 		return cart;
 	}

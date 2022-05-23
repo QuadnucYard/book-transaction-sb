@@ -28,9 +28,13 @@ public class Order {
     private int status;//订单状态
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> details;
 
     private int userId;
+
+    public void calcPrice() {
+        this.price = details.stream().mapToInt(OrderDetail::getPrice).sum();
+    }
 
 }
